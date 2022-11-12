@@ -1,0 +1,9 @@
+<div class="container">
+    <form>
+        <div class="form-group">
+            <label for="inputStation">Station Name</label>
+            <input [(ngModel)]="name" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="inputStation" placeholder="Enter ID">
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="this.addTrip()">Submit</button>
+    </form>
+</div>
