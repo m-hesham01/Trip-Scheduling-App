@@ -1,0 +1,13 @@
+<div class="container">
+    <form>
+        <div class="form-group">
+            <label for="IDinput">ID</label>
+            <input [(ngModel)]="id" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="inputID" placeholder="Enter ID">
+        </div>
+        <div class="form-group">
+            <label for="inputStation">Station Name</label>
+            <input [(ngModel)]="name" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="inputStation" placeholder="Enter ID">
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="this.updateTrip()">Submit</button>
+    </form>
+</div>

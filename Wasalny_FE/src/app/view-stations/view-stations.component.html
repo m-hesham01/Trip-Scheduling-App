@@ -1,0 +1,17 @@
+<div class="container">
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <th>ID</th>
+            <th>Name</th>
+            <th>Delete station</th>
+        </thead>
+        <tbody *ngFor="let s of stations">
+            <tr>
+                <td>{{s.id}}</td> 
+                <td>{{s.name}}</td>
+                <td><a class="btn btn-danger" type="button" (click)="this.delete(s.id)" >Delete</a></td>
+                <!-- <td><a class="btn btn-danger" type="button" (click)="this.delete(Trip.id)">Delete</a></td> -->
+            </tr>
+        </tbody>
+    </table>
+</div>
