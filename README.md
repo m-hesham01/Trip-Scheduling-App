@@ -1,5 +1,5 @@
 # Trip-Scheduling-App
-A simple trip scheduling system in which an admin can
+A simple containerized trip scheduling system using docker in which an admin can
 create trips between stations.
 
 The Admin user functions are :
@@ -11,9 +11,11 @@ The Admin user functions are :
    * show all scheduled trips
    * show all stations
    
-The Trip Scheduling system frontend code uses Angular and backend apis
-developed in java spring boot and MySql as a database.
-
+The Trip Scheduling system has 3 containers :
+  * Angular front end container 
+  * backend apis spring boot container
+  * MYSQL database container
+  
 ## Screenshots:
 ![image](https://user-images.githubusercontent.com/42949982/202022104-87976962-93f3-4fd4-b7c7-209c79cee96e.png)
 ![image](https://user-images.githubusercontent.com/42949982/202022207-231facc2-0173-4778-93c3-f74fa29d7a69.png)
