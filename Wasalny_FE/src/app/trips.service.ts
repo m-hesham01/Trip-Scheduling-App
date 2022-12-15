@@ -11,46 +11,46 @@ export class TripsService {
 
 
   constructor( private http: HttpClient) { }
-  private tripsUrl = 'http://localhost:8080/api/trips';  // URL to web api
+  private tripsUrl = 'https://be3-trip-scheduling-app.apps.eu410.prod.nextcle.com/api/trips';  // URL to web api
   getTrips():Observable<Trip[]> {
       return this.http.get<Trip[]>(this.tripsUrl)
   }
   deleteTrip(id:any){
     let stringID = id.toString();
-    let url = 'http://localhost:8080/api/trips/'+stringID;
+    let url = 'https://be3-trip-scheduling-app.apps.eu410.prod.nextcle.com/api/trips/'+stringID;
     console.log(url);
     this.http.delete(url).subscribe();
     window.location.reload();
   }
   getStations():Observable<Station[]> {
-    let url = 'http://localhost:8080/api/stations'
+    let url = 'https://be3-trip-scheduling-app.apps.eu410.prod.nextcle.com/api/stations'
     return this.http.get<Station[]>(url )
   }
   deleteStation(id:any){
     let stringID = id.toString();
-    let url = 'http://localhost:8080/api/stations/'+stringID;
+    let url = 'https://be3-trip-scheduling-app.apps.eu410.prod.nextcle.com/api/stations/'+stringID;
     console.log(url);
     this.http.delete(url).subscribe();
     window.location.reload();
   }
   updateTrip(data:any,_id:any){
     let stringID = _id.toString();
-    let url = 'http://localhost:8080/api/trips/'+stringID;
+    let url = 'https://be3-trip-scheduling-app.apps.eu410.prod.nextcle.com/api/trips/'+stringID;
     console.log(_id);
     console.log(url);
     console.log(data);
     return this.http.put(url,data);
   }
   updateStation(id:any,data:any){
-    let url = 'http://localhost:8080/api/stations/'+id;
+    let url = 'https://be3-trip-scheduling-app.apps.eu410.prod.nextcle.com/api/stations/'+id;
     return this.http.put(url,data);
   }
   addStation(data:any){
-    let url = 'http://localhost:8080/api/stations';
+    let url = 'https://be3-trip-scheduling-app.apps.eu410.prod.nextcle.com/api/stations';
     return this.http.post(url,data);
   }
   addTrip(data:any){
-    let url = 'http://localhost:8080/api/trips/';
+    let url = 'https://be3-trip-scheduling-app.apps.eu410.prod.nextcle.com/api/trips/';
     console.log(data);
     return this.http.post(url,data);
   }

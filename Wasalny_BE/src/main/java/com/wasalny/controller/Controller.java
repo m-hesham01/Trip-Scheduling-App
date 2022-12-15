@@ -36,7 +36,7 @@ public class Controller extends WebMvcConfigurerAdapter {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("http://localhost:4200").allowedMethods("POST");
+        registry.addMapping("/**").allowedOrigins("http://localhost:4200","https://frontend11-trip-scheduling-app.apps.eu410.prod.nextcle.com/").allowedMethods("POST");
     }
 
     @PostMapping("/stations")
@@ -223,7 +223,8 @@ public class Controller extends WebMvcConfigurerAdapter {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    // @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "https://frontend11-trip-scheduling-app.apps.eu410.prod.nextcle.com/")
     @PostMapping("/user/login")
     public ResponseEntity<HttpStatus> signIn(@RequestBody User user) {
         try{
