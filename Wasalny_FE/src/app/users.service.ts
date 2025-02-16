@@ -11,7 +11,7 @@ export class UsersService {
   signin(data: any) {
     console.log(data);
     // console.log(this.admin);
-    let url ='https://be3-trip-scheduling-app.apps.eu410.prod.nextcle.com/api/user/login';
+    let url ='http://be2-trip2-scheduling-app.apps.eu410.prod.nextcle.com/api/user/login';
     // "http://localhost:8080/api/user/login"
     console.log(this.http.post(url, data));
     return this.http.post(url, data);
@@ -19,7 +19,7 @@ export class UsersService {
 
   signup(data: any) {
     console.log(data);
-    let url ='https://be3-trip-scheduling-app.apps.eu410.prod.nextcle.com/api/user/signup';
+    let url ='http://be2-trip2-scheduling-app.apps.eu410.prod.nextcle.com/api/user/signup';
     // "http://localhost:8080/api/user/signup"
     console.log(this.http.post(url, data));
     return this.http.post(url, data);

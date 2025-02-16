@@ -10,4 +10,5 @@ public interface stationRepository extends JpaRepository<Station, Integer> {
 //
   @Query("SELECT s from Station s WHERE s.name = :name")
   List<Station> findStationByName(@Param("name") String name);
+  
 }

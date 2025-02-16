@@ -3,7 +3,7 @@ package com.wasalny.entities;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "users") // to escape Uset sql keyword
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

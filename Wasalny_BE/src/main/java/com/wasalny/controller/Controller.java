@@ -36,12 +36,13 @@ public class Controller extends WebMvcConfigurerAdapter {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("http://localhost:4200","https://frontend11-trip-scheduling-app.apps.eu410.prod.nextcle.com/").allowedMethods("POST");
+        registry.addMapping("/**").allowedOrigins("http://localhost:4200",
+                "http://frontend12-trip2-scheduling-app.apps.eu410.prod.nextcle.com/").allowedMethods("POST");
     }
 
     @PostMapping("/stations")
     public ResponseEntity<Station> addStation(@RequestBody Station station) {
-        if(signedIn){
+        if (signedIn) {
             try {
                 Station _station = SR
                         .save(new Station(station.getName()));
@@ -49,13 +50,14 @@ public class Controller extends WebMvcConfigurerAdapter {
             } catch (Exception e) {
                 return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
             }
-        }else{
+        } else {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
     }
+
     @PutMapping("/stations/{id}")
     public ResponseEntity<Station> editStation(@PathVariable("id") int id, @RequestBody Station station) {
-        if(signedIn){
+        if (signedIn) {
             Optional<Station> stationData = SR.findById(id);
             if (stationData.isPresent()) {
                 Station _station = stationData.get();
@@ -64,12 +66,14 @@ public class Controller extends WebMvcConfigurerAdapter {
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
-        else{return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);}
     }
+
     @GetMapping("/stations")
     public ResponseEntity<List<Station>> listStations() {
-        if(signedIn){
+        if (signedIn) {
             try {
                 List stations = new ArrayList<Station>();
                 SR.findAll().forEach(stations::add);
@@ -87,18 +91,19 @@ public class Controller extends WebMvcConfigurerAdapter {
 
     @GetMapping("/stations/{id}")
     public ResponseEntity<Station> findStationById(@PathVariable("id") int id) {
-        if(signedIn){
+        if (signedIn) {
             Optional<Station> stationData = SR.findById(id);
             if (stationData.isPresent()) {
                 return new ResponseEntity<>(stationData.get(), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-        }else {
+        } else {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
 
     }
+
     public Station getStationByName(String stationName) {
         List<Station> stations = SR.findStationByName(stationName);
         return stations.get(0);
@@ -106,22 +111,23 @@ public class Controller extends WebMvcConfigurerAdapter {
 
     @DeleteMapping("/stations/{id}")
     public ResponseEntity<HttpStatus> deleteStation(@PathVariable("id") int id) {
-        if(signedIn){
+        if (signedIn) {
             try {
                 SR.deleteById(id);
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
-        else{return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);}
     }
 
     /////////////////////////////////////////////
 
     @PostMapping("/trips")
     public ResponseEntity<Trip> addTrip(@RequestBody Trip trip) {
-        if(signedIn){
+        if (signedIn) {
             try {
                 Station _fromStation = getStationByName(trip.getStartStation().getName());
                 Station _toStation = getStationByName(trip.getEndStation().getName());
@@ -136,13 +142,14 @@ public class Controller extends WebMvcConfigurerAdapter {
                 System.out.println(e.getMessage());
                 return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
             }
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
-        else{return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);}
     }
 
     @PutMapping("/trips/{id}")
     public ResponseEntity<Trip> editTrip(@PathVariable("id") int id, @RequestBody Trip trip) {
-        if(signedIn){
+        if (signedIn) {
             Optional<Trip> tripData = TR.findById(id);
             if (tripData.isPresent()) {
                 Station _fromStation = getStationByName(trip.getStartStation().getName());
@@ -156,13 +163,14 @@ public class Controller extends WebMvcConfigurerAdapter {
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
-        else{return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);}
     }
 
     @GetMapping("/trips")
     public ResponseEntity<List<Trip>> listTrips() {
-        if(signedIn){
+        if (signedIn) {
             try {
                 List trips = new ArrayList<Trip>();
                 TR.findAll().forEach(trips::add);
@@ -173,38 +181,38 @@ public class Controller extends WebMvcConfigurerAdapter {
             } catch (Exception e) {
                 return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
             }
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
-        else{return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);}
     }
-
 
     @GetMapping("/trips/{id}")
     public ResponseEntity<Trip> findTripById(@PathVariable("id") int id) {
-        if(signedIn){
+        if (signedIn) {
             Optional<Trip> tripData = TR.findById(id);
             if (tripData.isPresent()) {
                 return new ResponseEntity<>(tripData.get(), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
-        else{return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);}
     }
 
-    
     @DeleteMapping("/trips/{id}")
     public ResponseEntity<HttpStatus> deleteTrip(@PathVariable("id") int id) {
-        if(signedIn){
+        if (signedIn) {
             try {
                 TR.deleteById(id);
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
-        else{return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);}
     }
-
 
     /////////////////////////////////////////////
 
@@ -214,8 +222,7 @@ public class Controller extends WebMvcConfigurerAdapter {
             User _user = UR
                     .save(new User(
                             user.getUsername(),
-                            user.getPassword()
-                    ));
+                            user.getPassword()));
             return new ResponseEntity<>(_user, HttpStatus.CREATED);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -224,10 +231,10 @@ public class Controller extends WebMvcConfigurerAdapter {
     }
 
     // @CrossOrigin(origins = "http://localhost:4200")
-    @CrossOrigin(origins = "https://frontend11-trip-scheduling-app.apps.eu410.prod.nextcle.com/")
+    @CrossOrigin(origins = "http://frontend12-trip2-scheduling-app.apps.eu410.prod.nextcle.com")
     @PostMapping("/user/login")
     public ResponseEntity<HttpStatus> signIn(@RequestBody User user) {
-        try{
+        try {
             Optional<User> userData = Optional.ofNullable(UR.findByUsername(user.getUsername()).get(0));
             if (userData.isPresent()) {
                 if (Objects.equals(user.getPassword(), userData.get().getPassword())) {
@@ -236,14 +243,14 @@ public class Controller extends WebMvcConfigurerAdapter {
                 }
             }
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping("user/logout")
-        public ResponseEntity<HttpStatus> signOut(){
-            signedIn = false;
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
+    public ResponseEntity<HttpStatus> signOut() {
+        signedIn = false;
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
