@@ -1,5 +1,5 @@
 FROM mysql
 CMD ["/bin/sh"]
 VOLUME [/var/lib/mysql]
-ENV MYSQL_ROOT_PASSWORD=admin
+ENV MYSQL_ROOT_PASSWORD=
 EXPOSE 3306 33060
